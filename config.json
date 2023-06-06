@@ -1,0 +1,12 @@
+{
+  "callback_url": "http://127.0.0.1",
+  "callback_file": true,
+  "s3_upload_config": {
+    "endPoint": "127.0.0.1",
+    "port": 9010,
+    "useSSL": false,
+    "accessKey": "xxxx",
+    "secretKey": "xxxxx",
+    "bucketName": "xxx-asset"
+  }
+}
