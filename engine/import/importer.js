@@ -2,6 +2,7 @@ import { RunTaskAsync } from '../core/taskrunner.js';
 import { FileSource, GetFileName } from '../io/fileutils.js';
 import { RGBColor } from '../model/color.js';
 import { ImporterFile, ImporterFileList } from './importerfiles.js';
+import { Importer3dm } from './importer3dm.js';
 import { Importer3ds } from './importer3ds.js';
 import { ImporterGltf } from './importergltf.js';
 import { ImporterIfc } from './importerifc.js';
@@ -73,6 +74,7 @@ export class Importer {
             new ImporterStl(),
             new ImporterOff(),
             new ImporterPly(),
+            new Importer3dm(),
             new Importer3ds(),
             new ImporterGltf(),
             new ImporterO3dv(),

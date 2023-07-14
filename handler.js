@@ -11,7 +11,13 @@ export class ExporterWorker {
     export (req) {
         let file_name = req.file_name
         this.storage.startExport(req.gid, req.request_id, req.convert_type)
-        let inputFiles = [new OV.InputFile(file_name, OV.FileSource.Url, req.url)]
+        let inputFiles = []
+        if (req.urlType == 2) {
+            inputFiles = [new OV.InputFile(file_name, OV.FileSource.File, req.url)]
+        } else {
+            inputFiles = [new OV.InputFile(file_name, OV.FileSource.Url, req.url)]
+        }
+
         this.loader.LoadModel(inputFiles, this.settings, {
             onLoadStart: () => { },
             onFileListProgress: (current, total) => {

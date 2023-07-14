@@ -37,6 +37,7 @@ app.post('/convertwork/v1/importfile', upload.single('file'), (req, res) => {
     }
 
     data.gid = randomUUID()
+    data.urlType = 1
     exporterWorker.export(data)
     res.json({ code: 0, msg: "ok", data: data.gid })
 })

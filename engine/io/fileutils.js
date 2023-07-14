@@ -73,16 +73,16 @@ export function ReadFile (src, onProgress) {
 		let readStream = fs.createReadStream(src)
 		let totalSize = fs.statSync(src).size
 		let curSize = 0
-		let data = ''
+		let arr = []
 		readStream.on('data', (chunk) => {
 			curSize += chunk.length
-			data += chunk
+			arr.push(chunk)
 			onProgress(curSize, totalSize);
 		})
 		readStream.on('end', () => {
-			resolve(toArrayBuffer(Buffer.from(data)))
+			resolve(Buffer.concat(arr, readStream.bytesRead))
 		})
-		readStream.on('error', () => {
+		readStream.on('error', (e) => {
 			reject();
 		})
 	});
