@@ -17,7 +17,6 @@ export class ExporterWorker {
         } else {
             inputFiles = [new OV.InputFile(file_name, OV.FileSource.Url, req.url)]
         }
-
         this.loader.LoadModel(inputFiles, this.settings, {
             onLoadStart: () => { },
             onFileListProgress: (current, total) => {

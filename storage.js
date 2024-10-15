@@ -70,7 +70,7 @@ export class Storage {
             return
         }
         form.append("status", 0)
-        form.append("file", file)
+        form.append("file", file, gid + ".glb")
         console.log('[' + gid + ']executionSuccess successfully.')
         this.callbackResult(form)
         delete this.reqMap[gid];

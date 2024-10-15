@@ -1,4 +1,5 @@
 
+import fs from 'fs';
 export class LogStorage {
     startExport (gid, request_id, convert_type) {
         console.log(gid, request_id, convert_type)
@@ -9,8 +10,11 @@ export class LogStorage {
     executionErr (gid, stage, err) {
         console.log(gid, stage, err)
     }
-    executionSuccess (gid, save_path, file) {
-
+    executionSuccess (gid, save_path, buffer) {
         console.log(gid, save_path)
+        fs.writeFile('example.glb', buffer, (err) => {
+            if (err) throw err;
+            console.log('file save success！');
+        });
     }
 }
