@@ -16,7 +16,7 @@ if (config.callback_url == "" || config.port == "") {
 }
 const app = express()
 const port = 3000
-var upload = multer({ storage: multer.memoryStorage() })
+var upload = multer({ storage: multer.memoryStorage(), limits: { fileSize: 10 * 1024 * 1024, files: 1, fields: 8 } })
 app.use(express.json()) // for parsing application/json
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
 
@@ -54,6 +54,18 @@ app.get('/convertwork/v1/progress', (req, res) => {
         return
     }
     res.json({ code: 0, msg: "ok", data: v })
+})
+
+app.use((err, req, res, next) => {
+    if (err && err.code === 'LIMIT_FILE_SIZE') {
+        res.status(413).json({ code: 4130, msg: 'File too large: the import limit is 10 MiB' })
+        return
+    }
+    if (err && typeof err.code === 'string' && err.code.startsWith('LIMIT_')) {
+        res.status(400).json({ code: 4000, msg: err.message })
+        return
+    }
+    next(err)
 })
 
 app.listen(port, () => {
